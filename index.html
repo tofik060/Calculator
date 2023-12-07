@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Calculator</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.6.4/math.js"
+      integrity="sha512-BbVEDjbqdN3Eow8+empLMrJlxXRj5nEitiCAK5A1pUr66+jLVejo3PmjIaucRnjlB0P9R3rBUs3g5jXc8ti+fQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.6.4/math.min.js"
+      integrity="sha512-iphNRh6dPbeuPGIrQbCdbBF/qcqadKWLa35YPVfMZMHBSI6PLJh1om2xCTWhpVpmUyb4IvVS9iYnnYMkleVXLA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- For styling -->
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <br><br><br>
+      <!-- Use Table to create Calculator Structure -->
+
+      <table id="calcu">
+        <tr>
+          <td colspan="3">
+            <input type="text" id="result" />
+          </td>
+          <td>
+            <input type="button" value="c" onclick="clr()" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input
+              type="button"
+              value="1"
+              onclick="caldis('1')"
+              onkeydown="calFunction(event)"
+            />
+          </td>
+          <td>
+            <input
+              type="button"
+              value="2"
+              onclick="caldis('2')"
+              onkeydown="calFunction(event)"
+            />
+          </td>
+          <td>
+            <input
+              type="button"
+              value="3"
+              onclick="caldis('3')"
+              onkeydown="calFunction(event)"
+            />
+          </td>
+          <td>
+            <input
+              type="button"
+              value="/"
+              onclick="caldis('/')"
+              onkeydown="calFunction(event)"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input
+              type="button"
+              value="4"
+              onclick="caldis('4')"
+              onkeydown="calFunction(event)"
+            />
+          </td>
+          <td>
+            <input
+              type="button"
+              value="5"
+              onclick="caldis('5')"
+              onkeydown="calFunction(event)"
+            />
+          </td>
+          <td>
+            <input
+              type="button"
+              value="6"
+              onclick="caldis('6')"
+              onkeydown="calFunction(event)"
+            />
+          </td>
+          <td>
+            <input
+              type="button"
+              value="*"
+              onclick="caldis('*')"
+              onkeydown="calFunction(event)"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input
+              type="button"
+              value="7"
+              onclick="caldis('7')"
+              onkeydown="calFunction(event)"
+            />
+          </td>
+          <td>
+            <input
+              type="button"
+              value="8"
+              onclick="caldis('8')"
+              onkeydown="calFunction(event)"
+            />
+          </td>
+          <td>
+            <input
+              type="button"
+              value="9"
+              onclick="caldis('9')"
+              onkeydown="calFunction(event)"
+            />
+          </td>
+          <td>
+            <input
+              type="button"
+              value="-"
+              onclick="caldis('-')"
+              onkeydown="calFunction(event)"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input
+              type="button"
+              value="0"
+              onclick="caldis('0')"
+              onkeydown="calFunction(event)"
+            />
+          </td>
+          <td>
+            <input
+              type="button"
+              value="."
+              onclick="caldis('.')"
+              onkeydown="calFunction(event)"
+            />
+          </td>
+          <!-- Call solve function to evaluate value -->
+          <td>
+            <input type="button" value="=" onclick="solve()" />
+          </td>
+          <td>
+            <input
+              type="button"
+              value="+"
+              onclick="caldis('+')"
+              onkeydown="calFunction(event)"
+            />
+          </td>
+        </tr>
+      </table>
+
+      <script>
+        function caldis(val) {
+          document.getElementById("result").value += val;
+          //console.log("Display: " + val);
+        }
+        function calFunction(event) {
+          if (
+            event.key == "0" ||
+            event.key == "1" ||
+            event.key == "2" ||
+            event.key == "3" ||
+            event.key == "5" ||
+            event.key == "6" ||
+            event.key == "7" ||
+            event.key == "8" ||
+            event.key == "9" ||
+            event.key == "+" ||
+            event.key == "-" ||
+            event.key == "/" ||
+            event.key == "*"
+          ) {
+            document.getElementById("result").value += event.key;
+          }
+        }
+
+        var cal = document.getElementById("calcu");
+        cal.onkeyup = function (event) {
+          if (event.keyCode === 13) {
+            var x = document.getElementById("result").value;
+            //console.log("Calcu: " + x);
+            solve();
+          }
+        };
+
+        function solve() {
+          var x = document.getElementById("result").value;
+          var y = math.evaluate(x);
+          document.getElementById("result").value = y;
+          //console.log("Value of X: " + x)
+          //console.log("Result sum: " + y)
+        }
+
+        function clr() {
+          document.getElementById("result").value = "";
+        }
+      </script>
+  </body>
+</html>
